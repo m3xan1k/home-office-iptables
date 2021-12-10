@@ -1,6 +1,13 @@
 DNS_FILE="/tmp/resolv.conf.d/resolv.conf.auto"
 DNS_SERVERS = {}
 
+-- wait for resolv.conf file
+EXISTS = nil
+while EXISTS == nil do
+    os.execute('sleep 1')
+    EXISTS = io.open(DNS_FILE)
+end
+io.close(EXISTS)
 
 -- helper
 local function startswith(str, prefix)
